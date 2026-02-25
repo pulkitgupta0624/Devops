@@ -1,0 +1,3 @@
+Following are the commands to push code to GitHub:
+
+1. git init

@@ -1,0 +1,19 @@
+Version Control Systems: 
+Used to track changes in code, 
+collaborate with other developers, 
+and manage different versions of a project.
+
+Common Version Control Systems:
+1. Git: A distributed version control system that allows multiple developers to work on the same project simultaneously. It is widely used and has a large community.
+2. Subversion (SVN): A centralized version control system that requires a central repository to store all versions of the code. It is less popular than Git but still used in some projects.
+3. Mercurial: Another distributed version control system that is similar to Git but has a different command structure and workflow. It is less popular than Git but still used in some projects.
+4. Perforce: A version control system that is commonly used in large enterprises and game development. It is known for its performance and scalability.
+
+VCSs hosting platforms:
+
+1. GitHub: A web-based platform that provides hosting for Git repositories. It offers features such as pull requests, issue tracking, and project management tools.
+2. GitLab: A web-based platform that provides hosting for Git repositories. It offers features such as continuous integration, issue tracking, and project management tools.
+3. Bitbucket: A web-based platform that provides hosting for Git and Mercurial repositories. It offers features such as pull requests, issue tracking, and project management tools.
+4. SourceForge: A web-based platform that provides hosting for various version control systems, including Git, SVN, and Mercurial. It offers features such as issue tracking and project management tools.
+5. Azure DevOps: A web-based platform that provides hosting for Git repositories. It offers features such as continuous integration, issue tracking, and project management tools.
+
