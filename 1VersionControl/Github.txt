@@ -1,3 +1,210 @@
 Following are the commands to push code to GitHub:
 
 1. git init
+(for initialize a local git)
+
+2. git add .
+(. used to add all the files and folder inside it if want to commit specific file then can add : git add xyz.txt)
+
+3. git commit -m "here will be the commit message"
+(commit message from here)
+
+4. git branch -M main
+(master branch name should be main)
+
+5. git remote add origin https://github.com/pulkitgupta0624/Devops.git
+(add remote repository)
+
+6. git push -u origin main
+(pushing command to main)
+
+- Github is storage location for your code 
+- can be local or remote
+- track all chnages to yout project file
+
+* Local repository: 
+- The version of the repository stored on your computer.
+- You use it to make commits and view the version history.
+
+* Remote repository:
+- The version of the repository stored on platforms like GitHub
+- Used to share your work with others or collaborate on projects
+
+
+* Command to check which file is tracked or modifies or untracked:
+(git status )
+
+
+* Git restore command:
+- Iss command ko use karke hum restore kar sakte h jo hamne last commit kiya tha
+- suppose hum commit kar chuke hai xyz and abhi humne uss file me xyzb kara hai par hume ab previous comit code wapis chahiye matlab file me xyz wapis chahiye
+- toh hum git restore filename.extension ya git restore . kar skte hai
+
+git restore .
+(basically kisi file ko track se untracked me lane ke liye isko use kiya hai)
+(git add ke baad jo file tracked me gayi h usko wapis restore ki ja skti hai na ki git commit ke baad ... commit ke baad restore nhi kiya ja skta hai)
+
+- git restore undo changes in working directory
+- it does not effect history
+- usually local use or undo local file changes
+- works on files
+- no new commit create here
+
+* Git Revert command:
+- undo a commit in history
+- it affects the history as it creates new commit
+- safe for shared repos
+- works on commits
+- new commit create here
+
+git revert <commit-hash>
+(each commit has unique hash value)
+
+* Git reset command:
+- it works on commits/HEAD
+- It changes history sometimes
+- not safe for pushed code
+- no new commit create here
+- move branch pointer to previous commit
+- it is risky
+
+Soft reset:
+
+git reset --soft HEAD^
+(^ means previous commit. moves head, keeps staging and keeps working files)
+
+Hard reset:
+
+git reset --hard HEAD^
+(^ means previous commit. moves head, delete staging and delete working files)
+
+- git reset moves your branch back to an older commit
+- but it can also:
+- keep your changes - this is called a soft reset
+- unstage your changes - this is called a mixed reset
+- or delete your changes - this is called a hard reset
+
+Suppose your commits look like this:
+A → B → C → D (HEAD)
+
+if we run : git reset HEAD~1
+
+then our commits will look like this:
+A → B → C (HEAD)
+
+means commit D is removed from history
+
+* Git Branches:
+A branch is just a seperate line of development
+
+Without branches:
+A → B → C → D
+
+With branches:
+A → B → C → D (main)
+         \
+          E → F (feature branch)
+
+- See all the branches:
+git branch
+(show local branches and show current branch as *)
+
+- Create a new branch:
+git branch new_branch_name
+(create new branch but we are still on main)
+
+- Switch to a branch:
+git checkout new_branch_name
+OR 
+git switch new_branch_name
+(now we are working in new_branch_name)
+
+- Create a new branch and switch to it:
+git checkout -b new_branch_name
+OR 
+git switch -b new_branch_name
+(now we are working in new_branch_name => creates branch and switches immediately)
+
+- Delete a branch:
+git branch -d new_branch_name
+
+- Rename a branch:
+git branch -m old_branch_name new_branch_name
+
+- Merge a branch:
+First go to main:
+
+git switch main
+
+then merge
+
+git merge new_branch_name
+(new_branch_name will be merged into main)
+
+
+* Git amend command:
+- git amend lets you mofify the last commit
+- Think of it like: oops... let me fix my previous commit
+
+git commit --amend
+
+Before:
+You did:
+git add .
+git commit -m "Add login page"
+
+but you fogoy one file
+
+step 1: add the missed file
+git add fogotefile.just
+
+step 2: amend the commit
+git commit --amend
+(now the file is included, no new commit is created, last commit is replaced with new commit)
+
+Common use:
+- Fix commit message
+git commit --amend -m "Correct message"
+
+- Add forgotten files
+git add file.js
+git commit --amend
+
+- Edit commit in editot
+git commit --amend
+
+
+* Git clone command:
+git clone https://github.com/pulkitgupta0624/Devops.git
+
+
+* Git pull and fetch command:
+- git fetch : download (safe)
+git fetch origin
+(It downloads latest changes from remote, does not change your code and does not merge)
+(It only updates remote tracking branches)
+
+- git pull : download + merge (automatic)
+git pull origin main
+(git fetch + git merge)
+
+Before pull:
+local main:      A → B
+origin/main:     A → B → C → D
+
+After pull:
+local main:      A → B → C → D
+origin/main:     A → B → C → D
+
+
+
+
+
+
+
+
+
+
+
+
+
