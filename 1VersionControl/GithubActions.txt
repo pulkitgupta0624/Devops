@@ -1,0 +1,60 @@
+- Github actions ek automation tool hai
+- Jab repo me kuch hota hai to automatically task run ho jate hai.
+
+- Isko hum bolte hai
+* CI (continuous integration)
+* CD (continuous deplyment)
+* Automation workflows
+
+Code push → GitHub Actions trigger → Steps run → Result
+
+Important terms:
+
+1. workflow
+- automation file
+- ye ek YAML file hoti hai and isme likha hota hai ki kya run karna hai.
+.github/workflows/main.yml
+
+2. Event (trigger)
+- Kab workflow run hoga
+- Examples: push, pull_request, schedule, manual
+
+3. Job (group of steps)
+- ek workflow me multiple jobs hoti hai
+
+4. Steps
+- actual command
+- jaise: npm install. npm run build
+
+5. Runner
+- machine jo code run karta hai
+
+Event occurs -> workflow starts -> job execute in parallel
+
+for example:
+
+ci.yml
+
+name: CI Pipeline
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+- yeh kya karega
+1. runner start hoga
+2. repo download hoga
+3. npm install chalega
+4. tests run hoga

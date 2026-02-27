@@ -1,0 +1,5 @@
+- It is a web based devops platform
+- provides complete CI/CD toolchain
+- suppports both cloud-hosted (SaaS) and seld managed deployments.
+- provides build in CI/CD , security, scanning and kubernetes integration.
+

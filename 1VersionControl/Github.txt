@@ -197,6 +197,77 @@ local main:      A → B → C → D
 origin/main:     A → B → C → D
 
 
+* Git Diff command:
+- git diff shows what changed in your code
+
+Before (last commit):
+const name = "Pulkit";
+
+After (edited):
+const name = "Pulkit Gupta";
+
+Run: git diff
+
+You will get:
+- const name = "Pulkit";
++ const name = "Pulkit Gupta";
+
+1. git diff (working vs staged)
+(show unstaged changes)
+
+2. git diff --staged (or --cached)
+(show staged vs last commit)
+
+3. git diff HEAD^ (or HEAD~1)
+(show last commit vs previous commit eg. git diff a1b2c3 d4e5f6)
+
+4. git diff between branches:
+(git diff main feature-login : show difference between main and feature-login)
+
+5. git diff for a specific file:
+(git diff filename.extension)
+
+
+* Skip stagging area
+git commit -a -m "your message"
+
+* Git stash command:
+- Git stash ka matlab apne current changes ko temporary side me rakh do
+- Jab aapka kaam complete nhi hai but branch siwtch karni hai - stash use hota hai
+
+- Maan lo:
+- Tum feature par kaam kar rahe ho
+- Kaam complete nahi
+- Suddenly bug fix karna hai dusri branch me
+
+❌ commit nahi karna chahte
+❌ changes lose nahi karna chahte
+
+👉 git stash = life saver
+
+1. changes stash karne ke liye
+git stash
+(current changes safe ho jate hain, working directory clean ho jati haim HEAD last commit par aa jata hai)
+
+2. Stash list dekhne ke liye
+git stash list
+
+3. Stash wapas lana
+git stash apply
+(isse changes wapaas aa jate hai par stash list me uska entry remove nhi hota)
+
+4. Apply + delete (clean way)
+git stash pop
+
+5. Clear all stashes:
+git stash clear
+
+
+* Fork :
+- Iska matlb hai kisi dusre ki repo ko apne account me copy karni hai
+- Toh fork ka use kar skte hai
+
+* Create merge or pull request:
 
 
 

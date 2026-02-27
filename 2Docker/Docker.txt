@@ -1,0 +1,182 @@
+* Docker ek containerization platform hai
+- Docker app + uska environment ek box (container) me pack kar deta hai.
+- Isse app har machine pe same tarah run hoti hai
+
+* Pehle problem kya thi
+- Maan lo tum mern app bana rahe ho and tumahre system me:
+(node v18, mongodb installed, specific dependencies hai and app chal rha hai)
+
+- But client ke system par
+(Node version different, mongo is missing and dependency conflict)
+(Ye meri machine pe work nhi kar rha h)
+
+* Solution
+- Docker app ko pack karta hai
+(App + node + dependencies + OS lib = Container)
+
+* What is container?
+- Container = App + dependencies + OS
+- Inside container:
+(app, runtime, libraries, configs, etc)
+
+* What is image?
+- Docker image = blueprint (recipe)
+(contains everything need to run an app)
+(Images are immutable)
+(stored in docker hub)
+
+- Container = running app (dish)
+(running instance of a docker image)
+(isolated, lightweight and portable environment where applications run.)
+(can be started, stopped and deleted)
+
+* What is Dockerfile?
+- Dockerfile = instructions
+- Dockerfile = how to make a container
+
+* What is Docker Hub?
+- docker images ko share karne ke liye
+- docker images ko store karne ke liye
+- docker images ko download karne ke liye
+- docker images ko build karne ke liye
+- docker images ko run karne ke liye
+
+
+* What is Docker compose?
+- Multiple containers ko manage karne ke liye
+- Docker compose = multiple containers ko ek sath chalana
+
+
+* What is volume?
+- Data persistence ke liye use hota hai
+- A docker volume is a special storage area that lets your container persist data outside the container.
+- Volumes are created when the container is created.
+🚨 The problem without voulmes:
+By default:
+Container stops → data lost ❌
+Container deleted → data gone ❌
+Rebuild image → data gone ❌
+
+✅ What volumes solve
+Volumes allow:
+persistent data
+data sharing between containers
+safe database storage
+backups
+
+* Benefits of Docker
+- Consistency: Har machine pe same environment
+- Portability: Har jagah chal sakta hai
+- Isolation: Alag alag apps ke liye alag containers
+- Scalability: Easily scale up/down
+- Efficiency: Lightweight, fast startup
+- Version control: Images ko version control kar sakte hai
+- Collaboration: Team ke sath easily share kar sakte hai
+- Cost-effective: Resource efficient, cloud me cost kam karta hai
+- Continuous integration/deployment: CI/CD pipelines me use hota hai
+- Microservices architecture: Alag alag services ke liye alag containers
+- Testing and development: Consistent environment for testing and development
+- Legacy application support: Old apps ko modern environment me run karna
+- Security: Containers isolate karte hai, security badhata hai
+- Resource management: Containers ko resource limits set kar sakte hai
+- Rapid deployment: Fast startup time se rapid deployment possible hai
+- Environment consistency: Development, testing, production me same environment
+- Dependency management: App ke dependencies ko easily manage kar sakte hai
+
+
+* All important commands for docker:
+
+1. Check docker version:
+(docker --version)
+
+- Check docker info:
+(docker info)
+
+2. Docker images command:
+
+- List all docker images:
+(docker images)
+- Pull an image from docker hub:
+(docker pull image_name:tag)
+- Remove an image:
+(docker rmi image_name:tag)
+- Build an image from a Dockerfile:
+(docker build -t image_name:tag .)
+- run an image:
+(docker run -d --name container_name image_name:tag)
+
+3. Docker containers command:
+
+- List all running containers:
+(docker ps)
+- List all stopped containers:
+(docker ps -a)
+- Start a container:
+(docker start container_id)
+- Stop a container:
+(docker stop container_id)
+- Remove a container:
+(docker rm container_id)
+- Run a container from an image:
+(docker run -d --name container_name image_name:tag)
+- Run a container from a Dockerfile:
+(docker build -t image_name:tag . && docker run -d --name container_name image_name:tag)
+
+4. Container debugging commands:
+- View container logs:
+(docker logs container_id)
+- Attach to a running container:
+(docker attach container_id)
+- Execute a command inside a running container:
+(docker exec -it container_id bash)
+
+5. Cleanup commands:
+- Remove all stopped containers:
+(docker container prune)
+- Remove all unused images:
+(docker image prune)
+- Remove all unused volumes:
+(docker volume prune)
+- Remove all unused networks:
+(docker network prune)
+- Remove all unused data:
+(docker system prune)
+- Remove all unused data (including volumes):
+(docker system prune -a --volumes)
+
+6. Docker voulmes command:
+- List all volumes:
+(docker volume ls)
+- Create a volume:
+(docker volume create volume_name)
+- Remove a volume:
+(docker volume rm volume_name)
+
+7. Docker networks command:
+- List all networks:
+(docker network ls)
+- Create a network:
+(docker network create network_name)
+- Remove a network:
+(docker network rm network_name)
+
+8. Docker compose command:
+- Start services defined in docker-compose.yml:
+(docker-compose up -d)
+- Stop services defined in docker-compose.yml:
+(docker-compose down)
+- View logs of services defined in docker-compose.yml:
+(docker-compose logs)
+- Scale services defined in docker-compose.yml:
+(docker-compose scale service_name=number_of_instances)
+- Build services defined in docker-compose.yml:
+(docker-compose build)
+- List services defined in docker-compose.yml:
+(docker-compose ps)
+- Remove stopped services defined in docker-compose.yml:
+(docker-compose rm)
+- Restart services defined in docker-compose.yml:
+(docker-compose restart)
+- View real-time logs of services defined in docker-compose.yml:
+(docker-compose logs -f)
+
