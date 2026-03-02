@@ -1,0 +1,75 @@
+- Ansible is an open source automation tool
+- It helps you manage and control many computer form one central system
+- You automate tasks like installing software, updating systems and managing configurations.
+
+👉 In simple words:
+
+Ansible = automatic remote server manager
+
+Instead of manually logging into servers amd running commands, ansible does it for you.
+
+* Without Ansible ❌
+You manually:
+- SSH into server1
+- install Node
+- install MongoDB
+- copy code
+- start app
+
+Repeat for 10 servers 😭
+
+* With Ansible ✅
+You write one file:
+- ansible-playbook deploy.yml
+
+Boom 💥 — all servers configured automatically.
+
+Some terminologies:
+1. Inventory
+- List of machines (servers) that ansible will manage
+- It answers where to run
+
+2. Playbook
+- YAML file that defines what Ansible should do
+- Run these tasks on these servers.
+- Playbook answers: "WHAT to do?
+
+3. Task
+- one small step Ansible performs
+- Task answers: "ONE step to perform"
+
+4. Role
+- structured way to organize playbooks and tasks
+- Role answers: "HOW to organize big automation cleanly"
+
+
+Steps to create inventory
+- Create a file name can be anything let's say - inventory
+- inside inventory file add the content:
+[local]
+localhost ansible_connection=local 
+- To test inventory: ansible-inventory -i inventory --list
+- Ping localhost : ansible local -i inventory -m ping
+
+Steps to create a playhook
+- for example if we have to install nginx
+- create a yml file for example: playbook.yml
+- inside it write code:
+''''
+---
+- name: My first playbook
+  hosts: local
+  become: yes
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+''''
+- now run command = ansible-playbook -i inventory playbook.yml
+- it will install nginx automatically
+
+
+control node : local machine
+manage node : remote machine

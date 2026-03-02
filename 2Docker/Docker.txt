@@ -46,6 +46,9 @@
 - Multiple containers ko manage karne ke liye
 - Docker compose = multiple containers ko ek sath chalana
 
+* What is docker compose file?
+- A tool for managing multiple containers easily.
+- A YAML configuration file for defining multi-container
 
 * What is volume?
 - Data persistence ke liye use hota hai

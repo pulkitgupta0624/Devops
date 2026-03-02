@@ -1,0 +1,60 @@
+* Cloude computing
+- Provudes on-demand access to computing resources over the internet.
+- No need for physical hardware-resources.
+- Pay-as-you-go model
+
+* what is AWS?
+- cloud computing platform
+
+* Common AWS services overview:
+- EC2 (Elastic Compute Cloud)
+- S3 (Simple Storage Service)
+- VPC (Virtual Private Cloud)
+- IAM (Identity & Access Management)
+- Lambda
+- RDS (Relational Database Service)
+
+* Important AWS terminologies:
+- Region - A geographical area (e.g., US-East, Asia-Pacific)
+- Avaliablity Zone (AZ) - Data centers inside a region
+- Edge Location - Global caching servers for faster content delivery
+
+* What is IAM in AWS?
+- IAM - Identity and Access management
+- It controls who can access what in aws
+
+* What is EC2?
+- Stands for elastic compute cloud.
+- It is like a virtual computer (server) that runs in the cloud.
+- You can start, stop, restart ir whenever you want.
+
+* Use of EC2:
+- To host website and web apps.
+- To run backend servers (like node.js, django, etc.)
+- To do testing or development work remotely.
+
+* What is S3?
+- Means simple storage service
+- used to store and manages file online
+- files are stored inside bucket (like folders)
+- each file is called object
+
+* What is lambda?
+- No need to manage server yourself
+- AWS manage the infrastructure for you
+- automatically scales up and down
+
+* DynamoDB
+- Fully managed noSQL by aws
+- Key-value and document based model
+- but data is stored in form of table but sql jaise koi relation nahi hote
+
+* What is ECS?
+- Stands for elastic container service
+- AWS service to run and manage docker container
+- handle container orchestration automatically
+
+Cluster: Group of resources
+Service: Run and maintains tasks
+Task: Set of container running together
+Container: Actual docker image running app
