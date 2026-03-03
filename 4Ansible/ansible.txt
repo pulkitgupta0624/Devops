@@ -73,3 +73,54 @@ Steps to create a playhook
 
 control node : local machine
 manage node : remote machine
+
+
+* Handlers and notify in ansible:
+- Are special tasks in ansible that only run when explicitly notified by other tasks
+
+* Roles in ansible:
+- a way to toganize playbooks into reusable and structured components.
+- seperate kogic into folders like tasks, handlers, vars, etc.
+- follows DRY (don't repeat yourself) principle
+
+To create role we use following command:
+Suppose we have to create a role for nginx
+command: (ansible-galaxy init nginx-role)
+this command will create a folder named nginx-role 
+and inside it following directories will be there
+README.md
+files
+meta
+templates
+vars
+defaults
+handlers
+tasks
+tests
+
+
+* Ansible facts:
+- Automatically collected information about the target syestem 
+- and stored in a dictionaly called ansible_facts
+
+* Ansible conditionals
+- run task only if condition is true
+- uses keyword 'when'
+
+* Ansible vaults:
+- encryption tool for sesitive data
+In real projects, never expose:
+passwords
+API keys
+AWS keys
+DB credentials
+private tokens
+
+Without Vault ❌ → secrets visible in GitHub
+With Vault ✅ → secrets encrypted
+
+❌ Bad practice: (db_password: mysecret123)
+✅ With Vault: (db_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256...)
+
+          

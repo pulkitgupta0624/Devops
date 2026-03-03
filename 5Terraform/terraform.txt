@@ -1,0 +1,152 @@
+- Terraform is a tool jisse hum code likh ke cloud infrastructure create and manage kar skte hai
+Means:
+❌ Pehle: AWS console mein manually click-click
+✅ Ab: Code likho → run karo → infra automatically ban jaata hai 🚀
+
+- Terraform exactly karta kya hai:
+Terraform use hota hai cloud resources banane ke liye, jaise:
+🖥️ Virtual machines (EC2, VM)
+🌐 Networks (VPC, subnets)
+🗄️ Databases
+⚖️ Load balancers
+☸️ Kubernetes resources
+
+- uses:
+Open source and multi cloud platform ke saath ek saath work kar skta h (like aws, azure, GCP)
+Automate infrasturtcure deployment
+Easy syntax using HCL
+Supports version control and team collaboration
+
+- 🔥 Real-world example
+Maan lo ek startup ko chahiye:
+5 EC2 servers
+1 Load balancer
+1 Database
+Proper networking
+
+❌ Manual: bahut time + errors
+✅ Terraform: ek baar code → sab automatically
+
+- What is IaC (Infrastructure as Code)?
+Iac is a way to manage and provision infrastructure using code
+You write code instead of clicking AWS console
+
+- Terraform Workflow (End-to-End)
+👉 Terraform workflow = Code → Plan → Apply → Manage → Destroy
+
+1. Write Configuration (Code likhna)
+Sabse pehle aap .tf files mein infrastructure define karte ho.
+Example:
+resource "aws_instance" "web" {
+  ami           = "ami-123456"
+  instance_type = "t2.micro"
+}
+
+Meaning: “Terraform, ek EC2 instance bana do.”
+Yeh stage = Desired state define karna
+
+2. terraform init
+command: terraform init
+- Yeh kya karta hai?
+Required providers download karta hai (AWS, Azure, etc.)
+Backend setup karta hai
+Working directory prepare karta hai
+
+3. terraform Plan
+command: terraform Plan
+- Yeh kya karta hai?
+Terraform compare karta hai:
+Current infrastructure (state file se)
+Desired infrastructure (aapke code se)
+Basically ye dry run karta hai
+
+4. terraform Apply
+command: terraform apply
+- Yeh kya karta hai?
+actual changes karta hai:
+Resources create
+Update
+Delete
+
+5. State management (behind the scenes)
+Terraform ek file maintain karta hai:
+terraform.tfstate
+
+6. Modify infrastructure
+Jab changes chahiye:
+Code update karo
+terraform plan
+terraform apply
+
+Terraform smart diff karta hai — sirf required changes karega.
+🧠 This is called: idempotency
+
+7. Terraform Destroy
+command: terraform destroy
+
+isse Terraform jo bhi resources create kiye the — sab delete kar deta hai.
+
+
+FULL WORKFLOW:
+Write code → terraform init → terraform plan → terraform apply → manage via state → terraform destroy
+
+* What is terraform workspace?
+- seperate state environment
+- Same Terraform code → multiple environments manage karne ka tarika.
+Most common use:
+dev
+staging
+prod
+
+All using same code, but different state.
+
+Normally Terraform keeps one state file.
+Problem:
+
+❌ Dev and prod mix ho sakte hain
+❌ Resources overwrite ho sakte hain
+❌ Risky for real systems
+
+👉 Workspaces solve this by giving isolated state files.
+
+When you start Terraform, it already has: default
+chwck using: terraform workspace list
+output: * default
+
+
+- How Workspaces Work (Concept)
+Think like folders:
+workspace = dev   → terraform.tfstate (dev)
+workspace = prod  → terraform.tfstate (prod)
+
+Create workspace : terraform workspace new dev
+List workspaces : terraform workspace list
+Switch workspace : terraform workspace select prod
+Show current workspace : terraform workspace show
+Delete workspace : terraform workspace delete dev
+
+terraform.tfstate.d/
+  ├── dev/
+  │   └── terraform.tfstate
+  └── prod/
+      └── terraform.tfstate
+
+
+* Terraform registry?
+Terraform Registry is the official marketplace/library for Terraform.
+Terraform Registry = ready-made providers & modules ka store
+
+- What is a provider?
+Provider = plugin that lets Terraform talk to APIs.
+
+Examples:
+Amazon Web Services provider
+Microsoft Azure provider
+Google Cloud Platform provider
+Kubernetes provider
+
+- What is a module?
+Module = reusable Terraform code package.
+Think:
+Module = infra ka reusable template
+Instead of writing VPC setup from scratch, use a module.
