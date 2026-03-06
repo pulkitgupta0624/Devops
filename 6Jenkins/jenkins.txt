@@ -1,0 +1,143 @@
+It is an open source automation server and helps developers automate tasks like building, testing and deploying code.
+It is mainly used in DevOps for CI/CD
+
+- Without Jenkins:
+Everyone pushes code
+Someone manually compiles it
+Someone runs tests
+Someone deploys
+Things break randomly
+Blame game starts 💀
+
+- With Jenkins:
+Code is pushed → Jenkins automatically:
+Builds the project
+Runs tests
+Generates reports
+Deploys to server (if everything passes)
+
+No drama. No chaos. Just automation.
+
+* CI(continuous integration) : automatically merge, test and validate code changes.
+* CD(continuous deployment) : automatically deploy the latest working version of your app.
+
+
+* What is job?
+Job ek task hai jo jenskins perform karta hai
+Example:
+Code build karna
+Tests run karna
+WAR file banana
+Server pe deploy karna
+
+Simple line me:
+Job matlab Jenkins ko diya gaya ek kaam.
+
+* What is build?
+Jab bhi job run hoti hai, uska ek execution hota hai = Build
+Example:
+Tumne code push kiya
+Jenkins ne job run ki
+Wo run ek “Build” kehlata hai
+
+* What is pipeline?
+Pipeline = Multiple steps ka sequence
+Example:
+Step 1: Code pull karo
+Step 2: Build karo
+Step 3: Test karo
+Step 4: Deploy karo
+
+Ye sab ek structured flow me hota hai → isko Pipeline bolte hai
+Pipeline ek file me likhi jati hai and isko jenkinsfile bolte hai
+
+* What is node/agent?
+Jis machine pe Jenkins ka kaam run hota hai = Node
+2 types:
+Master (Main Jenkins server)
+Agent (Dusri machine jo kaam karti hai)
+
+Example:
+Tumhara laptop = master
+Ek aur server = agent
+
+* What is workspace?
+Folder jahan Jenkins project ka code store karta hai jab job run hoti hai
+Yahin build hoti hai.
+
+* What is Plugin?
+Extra feature add karne ka tool
+Examples:
+Git plugin
+Docker plugin
+Maven plugin
+Kubernetes plugin
+
+* What is trigger?
+Trigger = Job kab run hogi
+Examples:
+Code push hone pe (GitHub webhook)
+Har 5 minute me
+Daily 2 AM pe
+Manually click karke
+
+* What is artifact?
+Build ke baad jo output milta hai
+Example:
+.jar file
+.war file
+.zip file
+
+Ye artifact store ho sakta hai ya deploy ho sakta hai.
+
+* Full workflow:
+Man lo tum Spring Boot project bana rahe ho:
+Tum GitHub pe push karte ho
+Jenkins trigger hota hai
+Job run hoti hai
+Build hoti hai
+Tests run hote hain
+WAR file banti hai (artifact)
+Server pe deploy hota hai
+
+Bas ye hi pura CI/CD hai.
+
+
+* What is jenkinsfile?
+👉 Jenkinsfile ek text file hoti hai jisme Jenkins pipeline define hoti hai.
+Simple words me:
+Jenkinsfile Jenkins ko batata hai ki code ko build, test aur deploy kaise karna hai.
+
+Maan lo tumhara project ka flow hai:
+
+1️⃣ GitHub se code download karo
+2️⃣ Project build karo
+3️⃣ Tests run karo
+4️⃣ Application deploy karo
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo 'Building the project...'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+
+    }
+}
+
