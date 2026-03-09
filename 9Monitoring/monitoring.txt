@@ -1,0 +1,16 @@
+Monitoring means keeping an eye on your systems, servers, apps and websites.
+It helps you to know if everything is working fine or if there are any issues that need attention. Here are some common monitoring tools and commands:
+
+* What is Grafana?
+Graphana is a data visualization tool.
+It shows your system's data in beautiful dashboards, graphs and charts.
+
+* What is Prometheus?
+Prometheus is a monitoring and alerting toolkit.
+It collects and stores metrics from your systems and applications.
+It allows you to query and analyze the data to find out what's going on.
+
+Prometheus and Grafana work together to give you a complete monitoring solution.
+Prometheus collects the data and Grafana visualizes it.
+
+

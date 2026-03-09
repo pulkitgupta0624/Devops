@@ -1,0 +1,66 @@
+Following are some common Linux commands that are useful for various tasks:
+
+1. User and Identity:
+whoami - Display the current user
+id - Display user ID and group ID
+passwd - Change user password
+groups - Display groups the user belongs to
+
+2. File and Directory Management:
+ls - List directory contents (ls -la)
+cd - Change directory (cd /path/to/directory)
+pwd - Print working directory (pwd)
+mkdir - Create a new directory (mkdir new_directory)
+rmdir - Remove an empty directory (rmdir directory_name)
+rm - Remove files or directories (rm file_name, rm -r directory_name)
+cp - Copy files or directories (cp source_file destination_file, cp -r source_directory destination_directory)
+mv - Move or rename files or directories (mv source_file destination_file, mv old_directory new_directory)
+find - Search for files in a directory hierarchy (find /path/to/search -name "filename")
+touch - Create an empty file or update the timestamp of an existing file (touch file_name)
+
+3. File Permissions:
+chmod - Change file permissions (+x - make executable, -R - recursive) (chmod 755 file_name)
+chown - Change file owner and group (chown user:group file_name)
+ls -l - List files with detailed information including permissions (ls -l)
+
+4. Process Management:
+ps - Display current processes (ps aux)
+top - Display real-time system processes and resource usage (top)
+kill - Terminate a process by PID (kill PID)
+killall - Terminate processes by name (killall process_name)
+bg - Resume a suspended process in the background (bg %job_number)
+fg - Bring a background process to the foreground (fg %job_number)
+jobs - List background jobs (jobs)
+
+5. Networking:
+ifconfig - Display network interfaces and their configurations (ifconfig)
+ping - Test network connectivity (ping hostname_or_ip)
+curl - Transfer data from or to a server (curl http://example.com)
+ssh - Connect to a remote server securely (ssh user@hostname)
+
+6. Disk & Memory Usage:
+df - Display disk space usage (df -h) (-h ka matlab human-readable format)
+du - Display disk usage of files and directories (du -h file_or_directory)
+free - Display memory usage (free -h)
+
+7. System Information:
+uname - Display system information (uname -a)
+uptime - Display how long the system has been running (uptime)
+systemctl - Control the systemd system and service manager (systemctl status service_name)
+journalctl - View system logs (journalctl -xe)
+
+8. Package Management (Debian-based systems):
+apt-get - Install, update, and remove packages (apt-get install package_name, apt-get update, apt-get upgrade)
+
+9. Text Processing:
+cat - Concatenate and display file contents (cat file_name)
+grep - Search for patterns in files (grep "pattern" file_name)
+head - Display the first few lines of a file (head file_name)
+tail - Display the last few lines of a file (tail file_name)
+echo - Display a line of text (echo "Hello, World!")
+
+10. Miscellaneous:
+date - Display or set the system date and time (date)
+history - Display command history (history)
+clear - Clear the terminal screen (clear)
+These commands are fundamental for navigating and managing a Linux system. Depending on your specific needs, there are many more commands and options available to explore.

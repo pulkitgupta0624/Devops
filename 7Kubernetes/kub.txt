@@ -1,0 +1,449 @@
+Kubernetes (K8s) ek container orchestration tool hai.
+Matlab:
+Agar tumhare paas bahut saare containers (Docker containers) hain, to Kubernetes unko manage, scale, deploy aur monitor karta hai automatically.
+
+Socho tumhare paas ek restaurant chain hai.
+Containers = chefs jo food bana rahe hain
+Servers/Nodes = kitchen
+Kubernetes = manager jo sab control kar raha hai
+
+Manager kya karta hai?
+Agar ek chef sick ho gaya → naya chef assign karega
+Agar customers zyada aa gaye → aur chefs add karega
+Agar kam customers → chefs reduce karega
+Sab kitchen mein kaam properly ho raha hai ya nahi → monitor karega
+
+Yehi kaam Kubernetes containers ke saath karta hai.
+
+* Problem kya thi bina Kubernetes ke?
+
+Agar tum Docker use karte ho aur:
+5 servers hain
+100 containers run ho rahe hain
+
+To manually manage karna mushkil ho jata hai.
+Problems:
+Container crash ho gaya
+Traffic suddenly increase ho gaya
+Load balancing karna
+Scaling
+Updates without downtime
+
+Yeh sab manually manage karna impossible ho jata hai.
+👉 Isliye Kubernetes use hota hai.
+
+* Kubernetes kya kya karta hai?
+1️⃣ Container orchestration
+Multiple containers ko organize karta hai.
+Example:
+App
+ ├─ frontend container
+ ├─ backend container
+ └─ database container
+Kubernetes sabko manage karta hai.
+
+2️⃣ Auto Scaling
+Agar traffic increase ho jaye:
+
+User traffic ↑
+Kubernetes automatically new containers start karega
+Isko Horizontal Scaling bolte hain.
+
+3️⃣ Self Healing
+Agar container crash ho gaya:
+
+Container down ❌
+Kubernetes automatically new container start karega ✔
+Isko self healing bolte hain.
+
+4️⃣ Load Balancing
+Traffic ko equally distribute karta hai.
+
+Example:
+User requests
+     ↓
+Load Balancer
+  ↓    ↓    ↓
+Pod1 Pod2 Pod3
+
+5️⃣ Rolling Updates
+App update karte waqt downtime nahi hota.
+Old version ko slowly replace karta hai new version se.
+
+
+
+* Main components of Kubernetes:
+1. Cluster
+Servers ka group.
+
+Cluster
+ ├─ Node
+ ├─ Node
+ └─ Node
+
+2. Node
+Ek machine/server jisme containers run hote hain.
+
+3. Pod
+Kubernetes ka smallest unit.
+Pod ke andar container run hota hai.
+
+Pod
+ └─ Container (Docker)
+
+4. Deployment
+Yeh define karta hai:
+- kitne pods chahiye
+- kaunsa image use hoga
+- update kaise hoga
+
+5. Service
+Pods ko expose karta hai network pe.
+Users → Service → Pods
+
+** Simple Architecture:
+
+           Kubernetes Cluster
+           -------------------
+
+            Master Node
+         (Control Plane)
+             |
+     ---------------------
+     |        |         |
+   Node1    Node2     Node3
+     |        |         |
+    Pods     Pods      Pods
+
+
+* etcd:
+It is a key-value database of the entire cluster.
+Stores configuration, cluster state and secrets
+
+* Controller Manager:
+Ensures the cluster is is the desired state.
+Example: if 3 pods are needed and only 2 are running then it will create 3rd
+
+* Scheduler:
+Decides which node will run the new pod.
+Checks available resources (CPU, RAM, etc) and schedules pods smartly
+
+* Kubelet:
+Agent running on every worker node.
+It talks to the master and runs the asigned pods
+
+
+some important commands:
+1. Cluster commands:
+'kubectl cluster-info' : Cluster ke baare me information deta hai
+
+'kubectl get nodes' : Cluster ke nodes dikhata hai
+
+2. Pod commands:
+'kubectl get pods' : Cluster ke pods dikhata hai
+
+'kubectl describe pod <pod-name>' : Pod ke details dikhata hai
+
+'kubectl run nginx --image=nginx' : Nginx container ke saath ek pod create karta hai
+
+'kubectl delete pod <pod-name>' : Pod delete karta hai
+
+'kubectl logs <pod-name>' : Pod ke logs dikhata hai
+
+'kubectl exec -it <pod-name> -- /bin/bash' : Pod ke andar bash shell access karta hai
+
+3. Deployment commands:
+'kubectl create deployment nginx --image=nginx' : Nginx deployment create karta hai (nginx ke naam se)
+
+'kubectl get deployments' : Cluster ke deployments dikhata hai
+
+'kubectl describe deployment <deployment-name>' : Deployment ke details dikhata hai
+
+'kubectl delete deployment <deployment-name>' : Deployment delete karta hai
+
+4. Scaling commands:
+'kubectl expose deployment nginx --port=80 --type=NodePort' : Deployment ko expose karta hai network pe
+
+'kubectl scale deployment nginx --replicas=3' : Deployment ke replicas (pods) ko 3 kar deta hai (scale up)  
+
+5. Service commands:
+'kubectl get services' : Cluster ke services dikhata hai
+
+'kubectl get svcs' : Services dikhata hai (short form)
+
+6. YAML Deployment commands:
+'kubectl apply -f deployment.yaml' : YAML file se deployment create karta hai
+
+'kubectl delete -f deployment.yaml' : YAML file se deployment delete karta hai
+
+7. Namespace commands:
+'kubectl get namespaces' : Cluster ke namespaces dikhata hai
+
+'kubectl create namespace dev' : Naya namespace create karta hai (dev ke naam se)
+
+8. Config and debug commands:
+'kubectl get all' : Cluster ke sab resources dikhata hai
+
+'kubectl get pods -o wide' : Pods ke details dikhata hai (wide format)
+
+'kubectl get pods -w' : Pods ke changes ko watch karta hai (real-time updates)
+
+
+* Kubernetes ConfigMap kya hota hai?
+ConfigMap ek Kubernetes resource hai jo configuration data ko store karta hai.
+Example:
+Aise values jo app ko chahiye but secret nahi hain.
+Jaise:
+Environment variables
+app configuration files
+database connection strings (agar secret nahi hain)
+
+Eg.
+APP_ENV=production
+APP_PORT=8080
+DB_HOST=mysql-service
+
+To create a ConfigMap:
+kubectl create configmap my-config --from-literal=APP_ENV=production --from-literal=APP_PORT=8080 --from-literal=DB_HOST=mysql-service
+
+To use ConfigMap in a pod:
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_ENV: "production"
+  APP_PORT: "8080"
+
+Pod me ConfigMap use karna
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: my-app-image
+    envFrom:
+    - configMapRef:
+        name: app-config  
+Isse pod ke andar APP_ENV, APP_PORT aur DB_HOST environment variables set ho jayenge jo ConfigMap me defined hain.
+
+
+* Kubernetes Secret kya hota hai?
+Secret bhi ek Kubernetes resource hai jo sensitive data ko store karta hai.
+Example:
+Passwords
+API keys
+TLS certificates
+Secret data ko base64 encode karke store karta hai for security.
+
+To create a Secret:
+kubectl create secret generic my-secret --from-literal=DB_PASSWORD=mysecretpassword
+
+To use Secret in a pod:
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+type: Opaque
+data:
+  DB_PASSWORD: bXlzZWNyZXRwYXNzd29yZA==  # base64 encoded value of "mysecretpassword
+
+Pod me Secret use karna
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: my-app-image
+    envFrom:
+    - secretRef:
+        name: db-secret
+
+Isse pod ke andar DB_PASSWORD environment variable set ho jayega jo Secret me defined hai.
+
+
+* Kubernetes namespace kya hota hai?
+Namespace Kubernetes cluster ke andar virtual cluster hota hai.
+Iska use resources ko logically group karne ke liye hota hai.
+Example:
+Kubernetes Cluster
+│
+├── dev namespace
+├── testing namespace
+├── production namespace
+
+Har namespace ke andar alag alag resources (pods, services, deployments) ho sakte hain.
+
+suppose Company me 3 environments hain:
+1. Development (dev)
+2. Staging (staging)
+3. Production (production)
+
+Cluster
+│
+├── dev
+│   ├── pods
+│   └── services
+│
+├── staging
+│   ├── pods
+│   └── services
+│
+└── production
+    ├── pods
+    └── services
+
+To create a namespace:
+kubectl create namespace dev
+
+To use a namespace:
+kubectl get pods -n dev  # dev namespace ke pods dikhata hai
+kubectl get services -n staging  # staging namespace ke services dikhata hai
+
+To delete a namespace:
+kubectl delete namespace production
+
+* Resource limits kya hota hai?
+Resource limits Kubernetes me ek tarah ka constraint hota hai jo define karta hai ki ek container kitna CPU aur memory use kar sakta hai.
+Example:
+CPU = 1 core
+Memory = 512MB
+
+Request
+CPU = 200m
+Memory = 256Mi
+
+Limit
+CPU = 500m
+Memory = 512Mi
+
+Meaning:
+container ko minimum 200m CPU milega
+maximum 500m CPU use kar sakta hai
+
+YAML example:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+spec:
+  containers:
+  - name: app
+    image: nginx
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "200m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+
+
+** Pod vs ReplicaSet vs Deployment:
+1. Pod: 
+Kubernetes ka smallest unit.
+Ek ya zyada containers ko run karta hai.
+Agar pod crash ho jata hai to automatically restart hota hai but new pod create nahi hota.
+
+2. ReplicaSet:
+Pod ka group jo ensure karta hai ki specified number of pod replicas hamesha running ho.
+Agar koi pod crash ho jata hai to ReplicaSet automatically new pod create karta hai.
+ReplicaSet
+│
+├── Pod
+├── Pod
+└── Pod
+Agar ek pod crash ho jata hai to ReplicaSet automatically new pod create karta hai.
+
+3. Deployment:
+Deployment ReplicaSet ka higher level abstraction hai.
+Deployment manage karta hai ReplicaSets, Pods, and other resources.
+Deployment ke through hum easily updates, rollbacks aur scaling kar sakte hain.
+Deployment
+│
+└── ReplicaSet
+     │
+     ├── Pod
+     ├── Pod
+     └── Pod
+
+
+** Kubernetes service types:
+Pods dynamic hote hain.
+
+Matlab:
+pod restart ho sakta hai
+IP change ho sakta hai
+
+Isliye stable networking ke liye Service use hoti hai.
+
+1. ClusterIP (default):
+Service ko cluster ke andar hi accessible banata hai.
+Use case: backend services, internal communication between pods
+
+2. NodePort:
+Service ko cluster ke bahar bhi accessible banata hai.
+Use case: development, testing, exposing services to external world
+
+3. LoadBalancer:
+Cloud provider ke load balancer create karta hai service ke liye.
+Use case: production, high availability, external traffic handling
+
+4. ExternalName:
+Service ko external DNS name se map karta hai.
+Use case: accessing external services from cluster
+
+
+* Helm kya hota hai?
+Helm Kubernetes ke liye ek package manager hai.
+Jaise:
+apt -> Ubuntu packages insstall karta hai
+npm -> Node.js packages install karta hai
+pip -> Python packages install karta hai
+Waise hi:
+Helm -> Kubernetes applications install karta hai
+
+Normal tarike se Kubernetes me application deploy karne ke liye hume YAML files create karni padti hain.
+Example:
+deployment.yaml
+service.yaml
+configmap.yaml
+secret.yaml
+Har application ke liye alag alag YAML files create karna aur manage karna mushkil ho jata hai.
+Helm is problem ko solve karta hai by using charts.
+Helm chart ek package hota hai jisme Kubernetes resources ke templates hote hain.
+Example:
+Helm Chart
+│
+├── deployment.yaml
+├── service.yaml
+├── ingress.yaml
+├── configmap.yaml
+└── secret.yaml
+
+Helm package ko chart kehte hain.
+Example:
+wordpress-chart
+nginx-chart
+graphana-chart
+
+Repository = charts store karne ki jagah
+Example:
+Helm Repo
+│
+├── nginx
+├── wordpress
+└── prometheus
+
+Release = Jab hum Helm chart ko install karte hain to usko release kehte hain.
+Example:
+helm install my-nginx nginx-chart
+
+Yaha:
+Release name = my-nginx
+Chart = nginx-chart
+
